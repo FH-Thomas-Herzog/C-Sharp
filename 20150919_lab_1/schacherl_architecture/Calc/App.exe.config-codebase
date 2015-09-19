@@ -1,0 +1,16 @@
+<!-- configuation file that specifies where the CLR class loader can find
+     the assemble file (codebase hint) -->
+<configuration>
+   <runtime>
+     <bypassTrustedAppStrongNames enabled="false" />
+     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+         <dependentAssembly>
+            <assemblyIdentity name="???????"
+                              publicKeyToken="???????????????"
+                              culture="neutral" />
+            <codeBase version="?.?.?.?"
+                      href="file:///???????????????"/>
+         </dependentAssembly>
+      </assemblyBinding>
+   </runtime>
+</configuration>

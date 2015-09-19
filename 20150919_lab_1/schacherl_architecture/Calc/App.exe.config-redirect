@@ -1,0 +1,20 @@
+<!-- configuation file that redirects references to versions 1.0.*.* to 1.9.*.* of
+     assembly AdvCalc.dll to version 2.0.0.0 -->
+<configuration>
+   <runtime>
+      <bypassTrustedAppStrongNames enabled="false" />
+      <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+         <dependentAssembly>
+            <assemblyIdentity name="AdvCalc"
+                              publicKeyToken="20d06c9eaba84a3c"
+                              culture="neutral" />
+            <bindingRedirect oldVersion="1.0.0.0-1.9.0.0"
+                             newVersion="2.0.0.0"/>
+            <codeBase version="1.0.0.0"
+                      href="file:///C:/temp/bin/v1/AdvCalc.dll"/>
+            <codeBase version="2.0.0.0"
+                      href="file:///C:/temp/bin/v2/AdvCalc.dll"/>
+         </dependentAssembly>
+      </assemblyBinding>
+   </runtime>
+</configuration>
