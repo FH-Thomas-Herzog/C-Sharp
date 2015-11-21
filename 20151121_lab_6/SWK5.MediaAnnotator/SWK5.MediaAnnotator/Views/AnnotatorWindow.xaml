@@ -1,0 +1,95 @@
+﻿<Window x:Class="SWK5.MediaAnnotator.Views.AnnotatorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWK5.MediaAnnotator.Views"
+        xmlns:c="clr-namespace:SWK5.MediaAnnotator.Views.Controls"
+        mc:Ignorable="d"
+        Title="AnnotatorWindow" Height="800" Width="800" ResizeMode="CanResize">
+    <Window.Resources>
+        <!-- Custom style for GridSplitter component-->
+        <Style TargetType="GridSplitter" x:Key="coloredGridSplitterStyle">
+            <Setter Property="Background" Value="Blue"/>
+        </Style>
+
+    </Window.Resources>
+
+
+    <Grid>
+        <!-- Grid column definitions which defined grid cols for current grid-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- List box which holds the media folders and is placed in colIdx=0-->
+        <ListBox Name="listMediaFolders" 
+                 Grid.Column="0"
+                 ItemsSource="{Binding Folders}" 
+                 SelectedItem="{Binding CurrentFolder}">
+
+        </ListBox>
+        <GridSplitter Width="3" Grid.Column="0"
+                      HorizontalAlignment="Right"
+                      VerticalAlignment="Stretch"
+                      Style="{StaticResource coloredGridSplitterStyle}">
+
+        </GridSplitter>
+
+        <!-- Second col holds again a grid for displaying media content -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <ListBox Name="listMedia" 
+                     BorderThickness="0"
+                     Grid.Row="0"
+                     ItemsSource="{Binding CurrentFolder.Items}"
+                     SelectedItem="{Binding CurrentFolder.CurrentItem}"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding Url}"
+                               Height="{Binding Value, ElementName=sliderPicHeight}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+
+            <!-- Slider component for image resizing-->
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBlock Text="Picture Height" Margin="5"/>
+                <Slider Name="sliderPicHeight"
+                        Minimum="20" 
+                        Maximum="150"
+                        Value="50"
+                        TickFrequency="5"
+                        IsSnapToTickEnabled="true"
+                        TickPlacement="BottomRight"
+                        Margin="5"
+                        Width="200"/>
+            </StackPanel>
+            <GridSplitter Grid.Row="1" 
+                          Height="3" 
+                          HorizontalAlignment="Stretch" 
+                          VerticalAlignment="Bottom"
+                          ResizeBehavior="PreviousAndNext"
+                          Style="{StaticResource coloredGridSplitterStyle}"/>
+
+            <!-- Media annotator -->
+            <c:MediaEditor Grid.Row="2"
+                           DataContext="{Binding CurrentFolder.CurrentItem}"/>
+        </Grid>
+    </Grid>
+</Window>
